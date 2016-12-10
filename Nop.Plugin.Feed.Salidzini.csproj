@@ -72,7 +72,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\SalidziniFeedController.cs" />
+    <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Data\SalidziniFeedSettings.cs" />
+    <Compile Include="Data\SalidziniFeedSettingsMap.cs" />
+    <Compile Include="Data\SalidziniFeedSettingsObjectContext.cs" />
+    <Compile Include="Services\ISalidziniFeedService.cs" />
+    <Compile Include="Services\SalidziniFeedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Description.txt">
