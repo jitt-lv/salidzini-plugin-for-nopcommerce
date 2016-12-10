@@ -29,10 +29,15 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult Index(int productId)
+        public ActionResult Configure()
+        {
+            return View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Configure.cshtml", null);
+        }
+        [ChildActionOnly]
+        public ActionResult Get()
         {
             //Read from the product service
-            Product productById = _productService.GetProductById(productId);
+            Product productById = _productService.GetProductById(1);
             /*
             //If the product exists we will log it
             if (productById != null)
