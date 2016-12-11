@@ -1,8 +1,19 @@
-﻿nopCommerce Salidzini.lv XML feed plugin
+![Salidizni.lv logo](https://static.salidzini.lv/images/logo_button.gif)
+
+
+Salidzini.lv product feed plugin for nopCommerce
 ===========
 
-nopCommerce product feed plugin for Latvian comparition service Salidzini.lv.
+This plugin enables nopCommerce products to be published to Latvian price comparition service **Salidzini.lv**. Products are published according to Salidzini.lv XML specification.
 
-nopCommerce site: [http://www.nopcommerce.com](http://www.nopcommerce.com)
+- More information about format : https://www.salidzini.lv/shops_info.php.
 
-Listing on nopCommerce "extensions and themes" catalog: [http://www.nopcommerce.com/)
+#### Development Notes
+To customize this plugin map this repository to folder :
+- nopCommerce\src\Plugins\Nop.Plugin.Feed.Salidzini
+
+#### Usefull links
+
+- [nopCommerce.com](http://www.nopcommerce.com)
+- [Plugin listing on nopCommerce "extensions and themes" catalog](http://www.nopcommerce.com/)
+
