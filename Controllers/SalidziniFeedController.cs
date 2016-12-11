@@ -15,30 +15,27 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
 {
     public class SalidziniFeedController : BasePluginController
     {
-        private readonly IProductService _productService;
-        private readonly ISalidziniFeedService _salidziniFeedService;
-        private readonly IWorkContext _workContext;
 
-        public SalidziniFeedController(IWorkContext workContext,
-            ISalidziniFeedService salidziniFeedService,
-            IProductService productService,
-            IPluginFinder pluginFinder)
+        private readonly ISalidziniFeedService _salidziniFeedService;
+        public SalidziniFeedController(ISalidziniFeedService salidziniFeedService)
         {
-            _workContext = workContext;
             _salidziniFeedService = salidziniFeedService;
-            _productService = productService;
         }
 
         [ChildActionOnly]
         public ActionResult Configure()
         {
+            // TODO : Return default settings
             var defaultConfig = new ConfigurationModel();
-            return View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Configure.cshtml", defaultConfig);
+
+            return 
+                View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Configure.cshtml", defaultConfig);
         }
         [HttpPost]
         [ChildActionOnly]
         public ActionResult Configure(ConfigurationModel model)
         {
+            // TODO : Implement any necessary settings update
             if (!ModelState.IsValid)
             {
                 return Configure();
@@ -50,28 +47,13 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            //Read from the product service
-            Product productById = _productService.GetProductById(1);
-            /*
-            //If the product exists we will log it
-            if (productById != null)
-            {
-                //Setup the product to save
-                var record = new TrackingRecord();
-                record.ProductId = productId;
-                record.ProductName = productById.Name;
-                record.CustomerId = _workContext.CurrentCustomer.Id;
-                record.IpAddress = _workContext.CurrentCustomer.LastIpAddress;
-                record.IsRegistered = _workContext.CurrentCustomer.IsRegistered();
+            var productFeed = _salidziniFeedService
+                .GetProductsFeed();
 
-                //Map the values we're interested in to our new entity
-                _viewTrackingService.Log(record);
-            }
-            */
+            // TODO : Consider some caching
 
-            //Return the view, it doesn't need a model
-            var list = new SalidziniItemList { new SalidziniProductItem { name = "Nokia" } };
-            return new XmlResult<SalidziniItemList>(list);
+            return 
+                new XmlResult<SalidziniProductList>(productFeed);
         }
     }
 }

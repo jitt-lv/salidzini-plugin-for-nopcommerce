@@ -84,8 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ConfigurationModel.cs" />
-    <Compile Include="Models\SalidziniRoot.cs" />
-    <Compile Include="Models\SalidziniXmlResult.cs" />
+    <Compile Include="Models\SalidziniItemList.cs" />
+    <Compile Include="Models\XmlResult.cs" />
     <Compile Include="SalidziniFeedPlugin.cs" />
     <Compile Include="SalidziniFeedRouteProvider.cs" />
     <Compile Include="Controllers\SalidziniFeedController.cs" />

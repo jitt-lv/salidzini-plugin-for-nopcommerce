@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nop.Core.Domain.Stores;
+using Nop.Plugin.Feed.Salidzini.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,6 @@ namespace Nop.Plugin.Feed.Salidzini
 {
     public interface ISalidziniFeedService
     {
-        string GetXMLProductFeed();
+        SalidziniProductList GetProductsFeed();
     }
 }

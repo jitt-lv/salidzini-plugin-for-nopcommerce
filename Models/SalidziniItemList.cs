@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace Nop.Plugin.Feed.Salidzini.Models
 {
     [XmlRoot(ElementName = "root", Namespace = null)]
-    public class SalidziniItemList : List<SalidziniProductItem>
+    public class SalidziniProductList : List<SalidziniProductItem>
     {
     }
     [XmlType(TypeName = "item")]

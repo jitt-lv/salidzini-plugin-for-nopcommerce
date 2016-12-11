@@ -10,11 +10,11 @@ namespace Nop.Plugin.Feed.Salidzini
         {
             routes.MapRoute(
                 "Plugin.Feed.Salidzini.Get",
-                "Plugins/SalidziniFeed/Get",
+                "Feeds/Salidzini",
                 new
                 {
                     controller = "SalidziniFeed",
-                    action = "Feed"
+                    action = "Get"
                 }, new[] {
                     "Nop.Plugin.Feed.Salidzini.Controllers" });
         }
