@@ -12,7 +12,7 @@ This plugin enables nopCommerce products to be published to Latvian price compar
 - To customize this plugin map this repository to folder
     - nopCommerce\src\Plugins\Nop.Plugin.Feed.Salidzini
 - Plugin is developed and tested with nopCommerce 
-    - v3.9.0.0
+    - v3.80
 
 #### Usefull links
 
