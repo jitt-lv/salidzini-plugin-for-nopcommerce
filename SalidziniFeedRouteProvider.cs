@@ -14,7 +14,7 @@ namespace Nop.Plugin.Feed.Salidzini
                 new
                 {
                     controller = "SalidziniFeed",
-                    action = "Get"
+                    action = "Feed"
                 }, new[] {
                     "Nop.Plugin.Feed.Salidzini.Controllers" });
         }

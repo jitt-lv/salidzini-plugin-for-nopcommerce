@@ -8,4 +8,25 @@
 {
     @Html.AntiForgeryToken()
 
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>
+                    <b>Make sure you have registered in Salidzini.lv.</b>
+                    <br />
+                    <br />
+                </p>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.MyProperty)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.MyProperty)
+                        @Html.ValidationMessageFor(model => model.MyProperty)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+

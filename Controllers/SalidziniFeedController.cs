@@ -1,6 +1,7 @@
 ﻿using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Plugins;
+using Nop.Plugin.Feed.Salidzini.Models;
 using Nop.Services.Catalog;
 using Nop.Web.Framework.Controllers;
 using System;
@@ -31,9 +32,22 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
         [ChildActionOnly]
         public ActionResult Configure()
         {
-            return View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Configure.cshtml", null);
+            var defaultConfig = new ConfigurationModel();
+            return View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Configure.cshtml", defaultConfig);
         }
+        [HttpPost]
         [ChildActionOnly]
+        public ActionResult Configure(ConfigurationModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Configure();
+            }
+
+            return Configure();
+        }
+
+        [HttpGet]
         public ActionResult Get()
         {
             //Read from the product service
@@ -56,7 +70,8 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
             */
 
             //Return the view, it doesn't need a model
-            return Content("");
+            var list = new SalidziniItemList { new SalidziniProductItem { name = "Nokia" } };
+            return new XmlResult<SalidziniItemList>(list);
         }
     }
 }
