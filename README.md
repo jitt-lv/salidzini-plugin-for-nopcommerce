@@ -21,5 +21,5 @@ This plugin enables nopCommerce products to be published to Latvian price compar
 #### Usefull links
 
 - [nopCommerce.com](http://www.nopcommerce.com)
-- [Plugin listing on nopCommerce "extensions and themes" catalog](http://www.nopcommerce.com/)
+- [Plugin listing on nopCommerce "extensions and themes" catalog](http://www.nopcommerce.com/p/2527/salidzinilv-product-feed.aspx/)
 
