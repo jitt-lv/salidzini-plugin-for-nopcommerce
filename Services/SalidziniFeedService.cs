@@ -12,18 +12,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Nop.Services.Seo;
 using Nop.Services.Media;
+using Nop.Core.Domain.Directory;
+using Nop.Services.Directory;
+using Nop.Services.Tax;
+using System.Globalization;
 
 namespace Nop.Plugin.Feed.Salidzini
 {
     public class SalidziniFeedService : ISalidziniFeedService
     {
         private readonly IProductService _productService;
+        private readonly ITaxService _taxService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly ICacheManager _cacheManager;
         private readonly ILanguageService _languageService;
         private readonly ICategoryService _categoryService;
         private readonly IPictureService _pictureService;
+        private readonly ICurrencyService _currencyService;
+        private readonly IPriceCalculationService _priceCalculationService;
+        private readonly CurrencySettings _currencySettings;
         public SalidziniFeedService(
             ICacheManager cacheManager,
             IProductService productService,
@@ -31,7 +39,11 @@ namespace Nop.Plugin.Feed.Salidzini
             IStoreContext storeContext,
             ILanguageService languageService,
             ICategoryService categoryService,
-            IPictureService pictureService)
+            IPictureService pictureService,
+            ICurrencyService currencyService,
+            IPriceCalculationService priceCalculationService,
+            ITaxService taxService,
+            CurrencySettings currencySettings)
         {
             _workContext = workContext;
             _cacheManager = cacheManager;
@@ -40,6 +52,10 @@ namespace Nop.Plugin.Feed.Salidzini
             _categoryService = categoryService;
             _languageService = languageService;
             _pictureService = pictureService;
+            _currencyService = currencyService;
+            _currencySettings = currencySettings;
+            _priceCalculationService = priceCalculationService;
+            _taxService = taxService;
         }
         public SalidziniProductList GetProductsFeed()
         {
@@ -87,26 +103,35 @@ namespace Nop.Plugin.Feed.Salidzini
 
                 foreach (var product in productsToProcess)
                 {
+                    // manufacturer
+                    var manufacturer = product.ProductManufacturers
+                        .FirstOrDefault()?.Manufacturer?.Name;
+
                     // name
                     var name = product.GetLocalized(x => x.Name, languageId);
                     if (name.Length > 200) name = name.Substring(0, 200);
 
+                    // model
+                    var model = name;
+
                     // link
                     var link = string.Format("{0}{1}", store.Url, product.GetSeName(languageId));
 
-                    // category_full
+                    // category_full & category_link
                     // TODO : localize categories              
-                    string category = string.Empty;
+                    var categoryBreadCrumb = string.Empty;
+                    var categoryLink = string.Empty;
                     var defaultProductCategory = _categoryService
                         .GetProductCategoriesByProductId(product.Id, store.Id)
                         .FirstOrDefault();
                     if (defaultProductCategory != null)
-                        category = defaultProductCategory.Category
-                            .GetFormattedBreadCrumb(_categoryService, separator: ">", languageId: languageId);
+                    {
+                        categoryBreadCrumb = defaultProductCategory.Category
+                             .GetFormattedBreadCrumb(_categoryService, separator: ">", languageId: languageId);
 
-                    // manufacturer
-                    var manufacturer = product.ProductManufacturers
-                        .FirstOrDefault()?.Manufacturer?.Name;
+                        categoryLink = string.Format("{0}{1}", store.Url, defaultProductCategory.Category
+                            .GetSeName(languageId));
+                    }
 
                     // image
                     string imageUrl = null;
@@ -122,12 +147,44 @@ namespace Nop.Plugin.Feed.Salidzini
                         imageUrl = _pictureService
                             .GetDefaultPictureUrl(180, storeLocation: store.Url);
                     */
+
+                    // price
+                    var currency = _currencyService
+                        .GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId);
+
+                    decimal finalPriceBase;
+                    // TODO : make configurable
+                    if (true)
+                    {
+                        // calculate for the maximum quantity (in case if we have tier prices)
+                        decimal minPossiblePrice = _priceCalculationService
+                            .GetFinalPrice(product, _workContext.CurrentCustomer, decimal.Zero, true, int.MaxValue);
+
+                        decimal taxRate;
+                        finalPriceBase = _taxService
+                            .GetProductPrice(product, minPossiblePrice, out taxRate);
+                    }
+                    else
+                    {
+                        finalPriceBase = product.Price;
+                    }
+                    decimal price = _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, currency);
+                    //round price now so it matches the product details page
+                    price = RoundingHelper.RoundPrice(price);
+
+
                     results.Add(new SalidziniProductItem
                     {
                         name = name,
                         image = imageUrl,
-                        category_full = category,
-                        manufacturer = manufacturer
+                        category_full = categoryBreadCrumb,
+                        category_link = categoryLink,
+                        manufacturer = manufacturer,
+                        link = link,
+                        model = model,
+                        price = price.ToString("0.00", CultureInfo.InvariantCulture),
+                        used = "0",
+                        in_stock = "1"
                     });
                 }
             }
