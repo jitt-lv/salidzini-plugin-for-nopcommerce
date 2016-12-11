@@ -2,8 +2,8 @@
 FriendlyName: Salidzini.lv
 SystemName: PromotionFeed.Salidzini
 Version: 1.0
-SupportedVersions: 3.90
+SupportedVersions: 3.80
 Author: JITT (by Edgars Pivovarenoks)
 DisplayOrder: 1
 FileName: Nop.Plugin.Feed.Salidzini.dll
-Description: This plugin enables publishing products feed for Salidzini.lv price comparition
+Description: This plugin enables publishing products feed for Salidzini.lv price comparison

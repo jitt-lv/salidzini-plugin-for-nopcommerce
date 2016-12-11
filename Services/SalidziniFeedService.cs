@@ -165,9 +165,8 @@ namespace Nop.Plugin.Feed.Salidzini
                             .GetProductPrice(product, minPossiblePrice, out taxRate);
                     }
                     else
-                    {
                         finalPriceBase = product.Price;
-                    }
+
                     decimal price = _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, currency);
                     //round price now so it matches the product details page
                     price = RoundingHelper.RoundPrice(price);

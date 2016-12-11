@@ -4,7 +4,7 @@
 Salidzini.lv product feed plugin for nopCommerce
 ===========
 
-This plugin enables nopCommerce products to be published to Latvian price comparition service **Salidzini.lv**. Products are published according to Salidzini.lv XML specification.
+This plugin enables nopCommerce products to be published to Latvian price comparison service **Salidzini.lv**. Products are published according to Salidzini.lv XML specification.
 
 - More information about format : https://www.salidzini.lv/shops_info.php.
 
