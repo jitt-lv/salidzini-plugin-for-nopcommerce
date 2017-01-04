@@ -11,9 +11,12 @@ using Nop.Services.Shipping.Pickup;
 using Nop.Services.Shipping.Tracking;
 using Nop.Web.Framework.Menu;
 using System.Linq;
+using Nop.Services.Cms;
+using System.Collections.Generic;
+
 namespace Nop.Plugin.Feed.Salidzini
 {
-    public class SalidziniFeedPlugin : BasePlugin, IMiscPlugin // , IAdminMenuPlugin
+    public class SalidziniFeedPlugin : BasePlugin, IMiscPlugin, IWidgetPlugin // , IAdminMenuPlugin
     {
         private readonly TrackingRecordObjectContext _context;
 
@@ -27,6 +30,23 @@ namespace Nop.Plugin.Feed.Salidzini
             actionName = "Configure";
             controllerName = "SalidziniFeed";
             routeValues = new RouteValueDictionary { { "Namespaces", "Nop.Plugin.Feed.Salidzini.Controllers" }, { "area", null } };
+        }
+
+        public void GetDisplayWidgetRoute(string widgetZone, out string actionName, out string controllerName, out RouteValueDictionary routeValues)
+        {
+            actionName = "ShowLogo";
+            controllerName = "SalidziniFeed";
+            routeValues = new RouteValueDictionary
+            {
+                {"Namespaces", "Nop.Plugin.Feed.Salidzini.Controllers"},
+                {"area", null},
+                {"widgetZone", widgetZone}
+            };
+        }
+
+        public IList<string> GetWidgetZones()
+        {
+            return new List<string> { "footer" };
         }
 
         public override void Install()

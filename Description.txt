@@ -1,7 +1,7 @@
 ﻿Group: Promotion feeds
 FriendlyName: Salidzini.lv
 SystemName: PromotionFeed.Salidzini
-Version: 1.0
+Version: 1.1
 SupportedVersions: 3.80
 Author: JITT (by Edgars Pivovarenoks)
 DisplayOrder: 1

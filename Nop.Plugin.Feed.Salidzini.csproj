@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ConfigurationModel.cs" />
+    <Compile Include="Models\LogosModel.cs" />
     <Compile Include="Models\SalidziniItemList.cs" />
     <Compile Include="Models\XmlResult.cs" />
     <Compile Include="SalidziniFeedPlugin.cs" />
@@ -118,6 +119,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="Views\SalidziniFeed\Logos.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">

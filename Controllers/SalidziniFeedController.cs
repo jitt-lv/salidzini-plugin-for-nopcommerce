@@ -55,5 +55,15 @@ namespace Nop.Plugin.Feed.Salidzini.Controllers
             return 
                 new XmlResult<SalidziniProductList>(productFeed);
         }
+
+        [ChildActionOnly]
+        public ActionResult ShowLogo(string widgetZone, object additionalData = null)
+        {
+            // TODO : Return default settings
+            var logosModel = new LogosModel();
+
+            return
+                View("~/Plugins/Feed.Salidzini/Views/SalidziniFeed/Logos.cshtml", logosModel);
+        }
     }
 }
